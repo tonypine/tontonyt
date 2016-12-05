@@ -3,7 +3,7 @@ class Api::TodosController < ApplicationController
   # GET /todos.json
   def index
     @todos = Todo.order(:id).all
-    render json: @todos, root: false
+    render json: @todos
   end
 
   # GET /todos/1
@@ -32,9 +32,9 @@ class Api::TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.save
-        format.json { render json: @todo, status: :created, root: false }
+        format.json { render json: @todo, status: :created }
       else
-        format.json { render json: @todo.errors, status: :unprocessable_entity, root: false }
+        format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
     end
   end
