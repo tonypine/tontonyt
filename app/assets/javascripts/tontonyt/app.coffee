@@ -69,5 +69,9 @@ TodoListCollectionView = Mn.CollectionView.extend
     createdTodo = this.collection.create data
   collectionEvents:
     'sync': 'render'
+    'change': 'statusMessages'
+  statusMessages: (data) ->
+    if this.collection.length is this.collection.filter({ completed: true }).length
+      alert "Congratulations! You've done all of your todos! ;)"
 
 window.TonTonYt = new App()
