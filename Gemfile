@@ -4,9 +4,8 @@ gem 'rails', '3.2.22.5'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-  gem 'normalize-rails'
-gem 'pg'
 
+gem 'pg'
 gem "active_model_serializers", "~> 0.8.0"
 
 # Gems used only for assets and not required
@@ -14,7 +13,7 @@ gem "active_model_serializers", "~> 0.8.0"
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
+  gem 'normalize-rails'
   gem 'haml'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
