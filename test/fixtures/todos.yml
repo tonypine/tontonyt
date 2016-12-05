@@ -3,9 +3,7 @@
 one:
   title: MyString
   completed: false
-  order: 1
 
 two:
   title: MyString
   completed: false
-  order: 1

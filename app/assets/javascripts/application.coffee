@@ -15,5 +15,7 @@
 #= require lib/backbone
 #= require lib/backbone.radio
 #= require lib/backbone.marionette.min
+#= require lib/icheck.min
+#= require tontonyt/app
 #= require jquery_ujs
 #= require_tree .

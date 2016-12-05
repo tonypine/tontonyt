@@ -1,0 +1,44 @@
+#app
+  margin: 40px auto 0
+  width: 500px
+  max-width: 100%
+  box-sizing: border-box
+  padding: 30px
+  background-color: #fff
+  border-radius: 4px
+
+#new-todo
+  height: 40px
+  width: 100%
+  border: 0
+
+.todo-list
+  list-style: none
+  padding: 0
+  li
+    padding: 0
+    height: 40px
+    position: relative
+    .icheckbox_flat-red
+      position: absolute !important
+      top: 10px
+    label
+      cursor: pointer
+      display: block
+      margin-left: 30px
+      line-height: 40px
+      &.completed
+        text-decoration: line-through
+        color: #7f8c8d
+    button.delete
+      background: none
+      border: none
+      position: absolute
+      top: 8px
+      right: 0
+      color: #bdc3c7
+      &:hover
+        cursor: pointer
+        color: #e74c3c
+  li + li
+    border-top: 1px solid #eee

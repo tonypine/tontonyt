@@ -1,1 +1,25 @@
 #app
+
+
+%script#home-template{ type: 'text/x-backbone' }
+  %h1 TonTonYt To-Do List
+  %input#new-todo{ type: 'text', placeholder: 'What you need to do?' }
+  #todo-items-region
+
+%script#todo-item-template{ type: 'text/x-backbone' }
+  :plain
+    <% if (completed) { %>
+      <input id="todo-item-<% if(typeof id !== 'undefined') print(id) %>" type='checkbox' checked />
+    <% } else { %>
+      <input id="todo-item-<% if(typeof id !== 'undefined') print(id) %>" type='checkbox'/>
+    <% } %>
+    <label for="todo-item-<% if(typeof id !== 'undefined') print(id) %>" class="<% if (completed) print('completed') %>"><%= title %></label>
+    <button class="delete">
+      <i class="fa fa-times" />
+    </button>
+
+= content_for :javascripts do
+  :javascript
+    $(function() {
+      TonTonYt.start();
+    });
