@@ -1,66 +1,33 @@
 class Api::TodosController < ApplicationController
-  # GET /todos
-  # GET /todos.json
   def index
     @todos = Todo.order(:id).all
     render json: @todos
   end
 
-  # GET /todos/1
-  # GET /todos/1.json
-  def show
-    @todo = Todo.find(params[:id])
-    render json: @todo
-  end
-
-  # GET /todos/new
-  # GET /todos/new.json
-  def new
-    @todo = Todo.new
-    render json: @todo
-  end
-
-  # GET /todos/1/edit
-  def edit
-    @todo = Todo.find(params[:id])
-  end
-
-  # POST /todos
-  # POST /todos.json
   def create
-    @todo = Todo.new(params[:todo])
-
-    respond_to do |format|
-      if @todo.save
-        format.json { render json: @todo, status: :created }
-      else
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
-      end
+    @todo = Todo.new
+    @todo.title = params[:todo][:title]
+    @todo.completed = params[:todo][:completed]
+    if @todo.save
+      render json: @todo, status: :created
+    else
+      render json: @todo.errors, status: :unprocessable_entity
     end
   end
 
-  # PUT /todos/1
-  # PUT /todos/1.json
   def update
     @todo = Todo.find(params[:id])
-
-    respond_to do |format|
-      if @todo.update_attributes(params[:todo])
-        format.json { head :no_content }
-      else
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
-      end
+    if @todo.update_attributes(params[:todo])
+      head :no_content
+    else
+      render json: @todo.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /todos/1
-  # DELETE /todos/1.json
   def destroy
     @todo = Todo.find(params[:id])
     @todo.destroy
-
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    head :no_content
   end
+
 end

@@ -13,7 +13,9 @@
     <% } else { %>
       <input id="todo-item-<% if(typeof id !== 'undefined') print(id) %>" type='checkbox'/>
     <% } %>
-    <label for="todo-item-<% if(typeof id !== 'undefined') print(id) %>" class="<% if (completed) print('completed') %>"><%= title %></label>
+    <label for="todo-item-<% if(typeof id !== 'undefined') print(id) %>" class="<% if (completed) print('completed') %>">
+      <% print( _.escape( title ) ) %>
+    </label>
     <button class="delete">
       <i class="fa fa-times" />
     </button>

@@ -38,6 +38,12 @@ TodoItemModel = Backbone.Model.extend
     if attrs.title is ''
       "Todo name can't be empty"
     return
+  todoText: (text) ->
+    frag = document.createDocumentFragment()
+    frag.appendChild( document.createTextNode(text) )
+    $(frag).text()
+  initialize: ->
+    this.set 'title', this.todoText( this.get('title') )
 
 TodoItemView = Mn.View.extend
   tagName: 'li'
