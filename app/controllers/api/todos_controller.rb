@@ -2,7 +2,7 @@ class Api::TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = Todo.order(:id).all
     render json: @todos, root: false
   end
 
