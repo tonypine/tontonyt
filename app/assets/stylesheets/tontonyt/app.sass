@@ -1,6 +1,6 @@
 #app
   margin: 0 auto
-  max-width: 700px
+  max-width: 650px
 
 #logo
   font-family: Lemon, cursive
@@ -31,6 +31,10 @@
   padding: 20px 30px
   background-color: #fff
   border-radius: 4px
+  @media screen and (max-width: 600px)
+    padding: 10px 20px
+  @media screen and (max-width: 320px)
+    margin-top: 15px
   // @media screen and (max-width: 600px)
   //   background-color: transparent
   .todo-list
@@ -50,8 +54,14 @@
         margin-left: 30px
         line-height: 1.5em
         padding:
-          top: 8px
-          bottom: 8px
+          top: 9px
+          bottom: 9px
+        font-size: 14px
+        @media screen and (max-width: 600px)
+          font-size: 13px
+          padding:
+            top: 10px
+            bottom: 10px
         &.completed
           text-decoration: line-through
           color: #a8b5c2
