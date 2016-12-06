@@ -18,10 +18,10 @@ TonTonYt.on 'todoShow', ->
   this.controller.updateTodoRegion()
 TonTonYt.on 'todoRemoved', ->
   if TonTonYt.collection.length is 0
-    this.controller.updateTodoRegion()
+    this.controller.showEmptyTodosView()
 TonTonYt.on 'todoAdded', ->
   if TonTonYt.collection.length is 1
-    this.controller.updateTodoRegion()
+    this.controller.showTodoList()
 
 AppController =
   showTodoHeader: ->
@@ -62,11 +62,11 @@ EmptyTodosView = Mn.View.extend
 TodoItemModel = Backbone.Model.extend
   urlRoot: '/api/todos'
   defaults:
+    title: ''
     completed: false
   validate: (attrs, ops) ->
-    if attrs.title is ''
-      "Todo name can't be empty"
-    return
+    if _.isEmpty( attrs.title )
+      return "Todo name can't be empty"
   todoText: (text) ->
     frag = document.createDocumentFragment()
     frag.appendChild( document.createTextNode(text) )
@@ -89,16 +89,17 @@ TodoItemView = Mn.View.extend
     'click .delete': 'deleteTodo'
   updateTodo: (ev) -> this.model.save { completed: ev.currentTarget.checked }
   deleteTodo: (ev) ->
-    this.model.destroy
-      success: -> TonTonYt.trigger 'todoRemoved'
+    this.model.destroy()
+    TonTonYt.trigger 'todoRemoved'
 
 TodoListCollection = Backbone.Collection.extend
   url: '/api/todos'
   model: TodoItemModel
   createTodo: (data) ->
-    createdTodo = this.create data,
-      success: (response) ->
-        TonTonYt.trigger 'todoAdded'
+    newTodo = new TodoItemModel data
+    if newTodo.save()
+      this.add newTodo
+      TonTonYt.trigger 'todoAdded'
 
 TodoListCollectionView = Mn.CollectionView.extend
   tagName: 'ul'
