@@ -48,8 +48,8 @@ TodoItemModel = Backbone.Model.extend
 TodoItemView = Mn.View.extend
   tagName: 'li'
   template: "#todo-item-template"
-  onDomRefresh: () ->
-    $('input').iCheck
+  onDomRefresh: ->
+    this.$('input').iCheck
       checkboxClass: 'icheckbox_flat-red',
       radioClass: 'iradio_flat-red'
   modelEvents:
@@ -57,11 +57,8 @@ TodoItemView = Mn.View.extend
   events:
     'ifChanged input': 'updateTodo'
     'click .delete': 'deleteTodo'
-  updateTodo: (ev) ->
-    this.model.set 'completed', ev.currentTarget.checked
-    this.model.save()
-  deleteTodo: (ev) ->
-    this.model.destroy()
+  updateTodo: (ev) -> this.model.save { completed: ev.currentTarget.checked }
+  deleteTodo: (ev) -> this.model.destroy()
 
 TodoListCollection = Backbone.Collection.extend
   url: '/api/todos'
@@ -74,8 +71,8 @@ TodoListCollectionView = Mn.CollectionView.extend
   createTodo: (data) ->
     createdTodo = this.collection.create data
   collectionEvents:
-    'sync': 'render'
     'change': 'statusMessages'
+
   statusMessages: (data) ->
     if this.collection.length is this.collection.filter({ completed: true }).length
       alert "Congratulations! You've done all of your todos! ;)"
