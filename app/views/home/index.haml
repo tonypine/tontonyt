@@ -25,6 +25,14 @@
       <i class="fa fa-times" />
     </button>
 
+%script#empty-todo-template{ type: 'text/x-backbone' }
+  %i.fa.fa-hand-spock-o
+  %h2 Cool!
+  %p
+    You don't have any to-dos to do ;)
+    %br
+    Unless you have ...
+
 = content_for :javascripts do
   :javascript
     $(function() {

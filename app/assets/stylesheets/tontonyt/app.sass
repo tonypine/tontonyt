@@ -28,23 +28,35 @@
   color: #4d6880
   opacity: 0.6
 
+.empty-todo
+  text-align: center
+  color: #375167
+  .fa-hand-spock-o
+    font-size: 72px
+    margin:
+      top: 30px
+      bottom: 10px
+      left: 10px
+  h2, p
+    margin: 0
+
 #todo-items-region
-  box-sizing: border-box
-  margin-top: 20px
-  padding: 20px 30px
-  background-color: #fff
-  box-shadow: 0 1px 4px -2px
-  border-radius: 4px
-  @media screen and (max-width: 600px)
-    padding: 10px 20px
-  @media screen and (max-width: 320px)
-    margin-top: 15px
-  // @media screen and (max-width: 600px)
-  //   background-color: transparent
   .todo-list
     list-style: none
-    margin: 0
-    padding: 0
+    // margin: 0
+    // padding: 0
+    box-sizing: border-box
+    margin-top: 20px
+    padding: 20px 30px
+    background-color: #fff
+    box-shadow: 0 1px 4px -2px
+    border-radius: 4px
+    @media screen and (max-width: 600px)
+      padding: 10px 20px
+    @media screen and (max-width: 320px)
+      margin-top: 15px
+    // @media screen and (max-width: 600px)
+    //   background-color: transparent
     li
       padding: 0 30px 0 0
       min-height: 40px

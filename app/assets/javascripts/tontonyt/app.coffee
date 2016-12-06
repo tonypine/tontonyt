@@ -6,18 +6,42 @@ Mn = Marionette
 App = Mn.Application.extend
   region: "#app"
   onStart: (options) ->
-    this.AppController = AppController
-    this.collection = new TodoListCollection()
-    this.collectionView = new TodoListCollectionView( collection: this.collection )
-    this.AppController.showTodoList()
+    this.controller = AppController
+    TonTonYt.collection = new TodoListCollection()
+    this.trigger('todoShow')
+
+window.TonTonYt = new App()
+
+# EVENTS
+TonTonYt.on 'todoShow', ->
+  this.controller.showTodoHeader()
+  this.controller.updateTodoRegion()
+TonTonYt.on 'todoRemoved', ->
+  if TonTonYt.collection.length is 0
+    this.controller.updateTodoRegion()
+TonTonYt.on 'todoAdded', ->
+  if TonTonYt.collection.length is 1
+    this.controller.updateTodoRegion()
 
 AppController =
-  showTodoList: ->
+  showTodoHeader: ->
     mainRegion = TonTonYt.getRegion()
-    homeView = new HomeView()
     mainRegion.show homeView
-    TonTonYt.collection.fetch()
+  updateTodoRegion: ->
+    TonTonYt.collection.fetch().then ->
+      if TonTonYt.collection.length > 0
+        TonTonYt.controller.showTodoList()
+      else
+        TonTonYt.controller.showEmptyTodosView()
+  showTodoList: ->
+    TonTonYt.collectionView = new TodoListCollectionView( collection: TonTonYt.collection )
+    homeView.getRegion('todoItems').empty()
     homeView.getRegion('todoItems').show( TonTonYt.collectionView )
+  showEmptyTodosView: ->
+    homeView.getRegion('todoItems').empty()
+    homeView.getRegion('todoItems').show( new EmptyTodosView() )
+  hideTodoList: ->
+    homeView.getRegion('todoItems').empty()
 
 HomeView = Mn.View.extend
   template: "#home-template"
@@ -27,8 +51,13 @@ HomeView = Mn.View.extend
     'keypress #new-todo': "createTodo"
   createTodo: (ev) ->
     if ev.keyCode is 13
-      TonTonYt.collectionView.createTodo { title: ev.currentTarget.value }
+      TonTonYt.collection.createTodo { title: ev.currentTarget.value }
       ev.currentTarget.value = ''
+homeView = new HomeView()
+
+EmptyTodosView = Mn.View.extend
+  template: '#empty-todo-template'
+  className: 'empty-todo'
 
 TodoItemModel = Backbone.Model.extend
   urlRoot: '/api/todos'
@@ -59,23 +88,25 @@ TodoItemView = Mn.View.extend
     'ifChanged input': 'updateTodo'
     'click .delete': 'deleteTodo'
   updateTodo: (ev) -> this.model.save { completed: ev.currentTarget.checked }
-  deleteTodo: (ev) -> this.model.destroy()
+  deleteTodo: (ev) ->
+    this.model.destroy
+      success: -> TonTonYt.trigger 'todoRemoved'
 
 TodoListCollection = Backbone.Collection.extend
   url: '/api/todos'
   model: TodoItemModel
+  createTodo: (data) ->
+    createdTodo = this.create data,
+      success: (response) ->
+        TonTonYt.trigger 'todoAdded'
 
 TodoListCollectionView = Mn.CollectionView.extend
   tagName: 'ul'
   className: 'todo-list'
   childView: TodoItemView
-  createTodo: (data) ->
-    createdTodo = this.collection.create data
   collectionEvents:
     'change': 'statusMessages'
 
   statusMessages: (data) ->
     if this.collection.length is this.collection.filter({ completed: true }).length
       alert "Congratulations! You've done all of your todos! ;)"
-
-window.TonTonYt = new App()
