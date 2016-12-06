@@ -54,6 +54,7 @@ TodoItemView = Mn.View.extend
       radioClass: 'iradio_flat-red'
   modelEvents:
     'sync': 'render'
+    'change:completed': 'render'
   events:
     'ifChanged input': 'updateTodo'
     'click .delete': 'deleteTodo'
