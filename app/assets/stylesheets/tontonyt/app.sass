@@ -1,17 +1,16 @@
 #app
   margin: 0 auto
   max-width: 700px
-  box-sizing: border-box
-  padding: 30px
-  background-color: #fff
-  border-radius: 4px
 
 #logo
   font-family: Lemon, cursive
   margin: 0
+  color: #375167
+.red
+  color: #ec3a2b
+
 #logo-legend
   margin: 0 0 1em
-
 
 #new-todo
   height: 40px
@@ -19,37 +18,52 @@
   border: 0
   text-align: center
   outline: none
+  box-shadow: 0 1px 4px -2px
+  border-radius: 5px
 
-.todo-list
-  list-style: none
-  padding: 0
-  li
-    padding: 0 30px 0 0
-    min-height: 40px
-    position: relative
-    .icheckbox_flat-red
-      position: absolute !important
-      top: 10px
-    label
-      cursor: pointer
-      display: block
-      margin-left: 30px
-      line-height: 1.5em
-      padding:
-        top: 8px
-        bottom: 8px
-      &.completed
-        text-decoration: line-through
-        color: #7f8c8d
-    button.delete
-      background: none
-      border: none
-      position: absolute
-      top: 8px
-      right: 0
-      color: #bdc3c7
-      &:hover
+::-webkit-input-placeholder
+  color: #4d6880
+  opacity: 0.6
+
+#todo-items-region
+  box-sizing: border-box
+  margin-top: 20px
+  padding: 20px 30px
+  background-color: #fff
+  border-radius: 4px
+  // @media screen and (max-width: 600px)
+  //   background-color: transparent
+  .todo-list
+    list-style: none
+    margin: 0
+    padding: 0
+    li
+      padding: 0 30px 0 0
+      min-height: 40px
+      position: relative
+      .icheckbox_flat-red
+        position: absolute !important
+        top: 10px
+      label
         cursor: pointer
-        color: #e74c3c
-  li + li
-    border-top: 1px solid #eee
+        display: block
+        margin-left: 30px
+        line-height: 1.5em
+        padding:
+          top: 8px
+          bottom: 8px
+        &.completed
+          text-decoration: line-through
+          color: #a8b5c2
+      button.delete
+        background: none
+        border: none
+        position: absolute
+        top: 8px
+        right: 0
+        color: #cddae4
+        &:hover
+          cursor: pointer
+          color: #ec3a2b
+    li + li
+      border-top: 1px solid #eee
