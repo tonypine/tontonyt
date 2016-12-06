@@ -2,15 +2,18 @@
   margin: 0 auto
   max-width: 650px
 
-#logo
-  font-family: Lemon, cursive
-  margin: 0
-  color: #375167
-.red
-  color: #ec3a2b
-
-#logo-legend
-  margin: 0 0 1em
+.logo-section
+  margin-bottom: 25px
+  @media screen and (max-width: 600px)
+    margin-bottom: 0
+  #logo
+    font-family: Lemon, cursive
+    margin: 0
+    color: #375167
+  .red
+    color: #ec3a2b
+  #logo-legend
+    margin: 0 0 1em
 
 #new-todo
   height: 40px
@@ -30,6 +33,7 @@
   margin-top: 20px
   padding: 20px 30px
   background-color: #fff
+  box-shadow: 0 1px 4px -2px
   border-radius: 4px
   @media screen and (max-width: 600px)
     padding: 10px 20px
@@ -76,4 +80,4 @@
           cursor: pointer
           color: #ec3a2b
     li + li
-      border-top: 1px solid #eee
+      border-top: 1px dashed #acc1d2
