@@ -8,9 +8,11 @@ RSpec.describe Todo, :type => :model do
     subject.completed = false
     expect(subject).to be_valid
   end
+
   it "is not valid without a title" do
     expect(subject).to_not be_valid
   end
+
   it "is not valid without completed attribute" do
     subject.title = 'new todo'
     expect(subject).to_not be_valid
