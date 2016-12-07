@@ -3,7 +3,9 @@ Tontonyt::Application.routes.draw do
   root :to => 'home#index'
 
   namespace :api do
-    resources :todos
+    namespace :v1 do
+      resources :todos
+    end
   end
 
   # The priority is based upon order of creation:

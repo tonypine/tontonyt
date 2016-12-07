@@ -1,4 +1,8 @@
-class Api::TodosController < ApplicationController
+require 'pry'
+class Api::V1::TodosController < ApplicationController
+
+  include ActionView::Helpers::SanitizeHelper
+
   def index
     @todos = Todo.order(:id).all
     render json: @todos

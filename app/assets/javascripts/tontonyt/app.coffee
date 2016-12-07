@@ -60,7 +60,7 @@ EmptyTodosView = Mn.View.extend
   className: 'empty-todo'
 
 TodoItemModel = Backbone.Model.extend
-  urlRoot: '/api/todos'
+  urlRoot: '/api/v1/todos'
   defaults:
     title: ''
     completed: false
@@ -93,7 +93,7 @@ TodoItemView = Mn.View.extend
     TonTonYt.trigger 'todoRemoved'
 
 TodoListCollection = Backbone.Collection.extend
-  url: '/api/todos'
+  url: '/api/v1/todos'
   model: TodoItemModel
   createTodo: (data) ->
     newTodo = new TodoItemModel data
