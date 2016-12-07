@@ -4,8 +4,6 @@ App = Mn.Application.extend
   region: "#app"
   onStart: (options) ->
     this.todoList = {}
-    this.todoList.controller = TodoListController
-    this.todoList.collection = new TodoListCollection()
     this.trigger('init')
 
 @app = new App()
@@ -14,7 +12,11 @@ App = Mn.Application.extend
 app.on 'init', ->
   app.homeView = new HomeView()
   app.showView app.homeView
-  app.todoList.controller.show()
+  app.todoList.controller = TodoListController
+  app.todoList.collection = new TodoListCollection()
+  app.todoList.collection.fetch().then ->
+    app.collectionView = new TodoListCollectionView( collection: app.todoList.collection )
+    app.todoList.controller.show()
 app.on 'destroyTodo', (model) ->
   app.todoList.controller.destroy model
 app.on 'newTodo', (data) ->

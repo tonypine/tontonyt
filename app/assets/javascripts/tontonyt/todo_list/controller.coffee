@@ -1,15 +1,11 @@
 @TodoListController =
   show: ->
-    app.todoList.collection.fetch().then ->
-      if app.todoList.collection.length > 0
-        app.collectionView = new TodoListCollectionView( collection: app.todoList.collection )
-        app.homeView.getRegion('todoList').empty()
-        app.homeView.getRegion('todoList').show( app.collectionView )
-      else
-        app.todoList.controller.clean()
+    if app.todoList.collection.length > 0
+      app.homeView.getRegion('todoList').show( app.collectionView )
+    else
+      app.todoList.controller.clean()
   clean: ->
-    app.homeView.getRegion('todoList').empty()
-    app.homeView.getRegion('todoList').show( new EmptyTodosView() )
+    app.homeView.getRegion('todoList').show( new EmptyTodosView(), { preventDestroy: true } )
   add: (data) ->
     newTodo = new TodoItemModel data
     if newTodo.save()
