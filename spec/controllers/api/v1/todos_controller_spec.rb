@@ -39,7 +39,7 @@ RSpec.describe Api::V1::TodosController, :type => :controller do
     it "should update the todo" do
       post :update, format: :json, :id => Todo.first.id, :todo => { :title => "edited todo", :completed => false }
       expect( response.content_type.symbol ).to eq(:json)
-      expect(response.status).to eq(422)
+      expect(response.status).to eq(204)
     end
   end
 

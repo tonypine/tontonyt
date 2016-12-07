@@ -22,7 +22,7 @@ class Api::V1::TodosController < ApplicationController
   def update
     @todo = Todo.find(params[:id])
     if @todo.update_attributes(params[:todo])
-      head :no_content
+      render json: @todo, status: 204
     else
       render json: @todo.errors, status: :unprocessable_entity
     end
